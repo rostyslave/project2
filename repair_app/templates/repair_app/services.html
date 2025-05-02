@@ -1,0 +1,26 @@
+{% extends 'repair_app/base.html' %}
+
+{% block title %}Послуги - Сервіс ремонту техніки{% endblock %}
+
+{% block content %}
+    <h1>Послуги ремонту</h1>
+    
+    <div>
+        {% for service in services %}
+            <div>
+                <h2>{{ service.name }}</h2>
+                <p>{{ service.description }}</p>
+                <p>Ціна: {{ service.price }} грн</p>
+                
+                {% if user.is_authenticated %}
+                    <p><a href="{% url 'repair_create' %}">Замовити ремонт</a></p>
+                {% else %}
+                    <p><a href="{% url 'login' %}">Увійдіть</a>, щоб замовити ремонт</p>
+                {% endif %}
+            </div>
+            <hr>
+        {% empty %}
+            <p>Наразі немає доступних послуг.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

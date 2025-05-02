@@ -1,0 +1,32 @@
+{% extends 'repair_app/base.html' %}
+
+{% block title %}Реєстрація - Сервіс ремонту техніки{% endblock %}
+
+{% block content %}
+    <h1>Реєстрація</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="error">
+                        {% for error in field.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if field.help_text %}
+                    <small>{{ field.help_text }}</small>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit">Зареєструватися</button>
+    </form>
+
+    <p>Вже зареєстровані? <a href="{% url 'login' %}">Увійти</a></p>
+{% endblock %}

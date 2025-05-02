@@ -1,0 +1,29 @@
+{% extends 'repair_app/base.html' %}
+
+{% block title %}Вхід - Сервіс ремонту техніки{% endblock %}
+
+{% block content %}
+    <h1>Вхід</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="error">
+                        {% for error in field.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        
+        <button type="submit">Увійти</button>
+    </form>
+    
+    <p>Ще не зареєстровані? <a href="{% url 'register' %}">Зареєструватися</a></p>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'repair_app/base.html' %}
+
+{% block title %}Контакти - Сервіс ремонту техніки{% endblock %}
+
+{% block content %}
+    <h1>Контактна інформація</h1>
+
+    {% for contact in contacts %}
+        <div>
+            <h2>{{ contact.name }}</h2>
+            <p><strong>Адреса:</strong> {{ contact.address }}</p>
+            <p><strong>Телефон:</strong> {{ contact.phone }}</p>
+            <p><strong>Email:</strong> {{ contact.email }}</p>
+            <p><strong>Робочі години:</strong> {{ contact.working_hours }}</p>
+        </div>
+        <hr>
+    {% empty %}
+        <p>Наразі немає доступної контактної інформації.</p>
+    {% endfor %}
+{% endblock %}

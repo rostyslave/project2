@@ -1,0 +1,40 @@
+{% extends 'repair_app/base.html' %}
+
+{% block title %}Мої ремонти - Сервіс ремонту техніки{% endblock %}
+
+{% block content %}
+    <h1>Мої замовлення ремонту</h1>
+    
+    <p><a href="{% url 'repair_create' %}">Створити нове замовлення</a></p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Пристрій</th>
+                <th>Послуга</th>
+                <th>Статус</th>
+                <th>Дата створення</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for repair in repairs %}
+                <tr>
+                    <td>{{ repair.id }}</td>
+                    <td>{{ repair.device }}</td>
+                    <td>{{ repair.service }}</td>
+                    <td>{{ repair.get_status_display }}</td>
+                    <td>{{ repair.created_at|date:"d.m.Y H:i" }}</td>
+                    <td>
+                        <a href="{% url 'repair_detail' repair.id %}">Деталі</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6">У вас ще немає замовлень ремонту.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

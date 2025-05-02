@@ -1,0 +1,32 @@
+{% extends 'repair_app/base.html' %}
+
+{% block title %}Замовлення ремонту - Сервіс ремонту техніки{% endblock %}
+
+{% block content %}
+    <h1>Замовлення ремонту</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="error">
+                        {% for error in field.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if field.help_text %}
+                    <small>{{ field.help_text }}</small>
+                {% endif %}
+            </div>
+        {% endfor %}
+        
+        <button type="submit">Замовити ремонт</button>
+    </form>
+    
+    <p><a href="{% url 'repair_list' %}">Назад до списку ремонтів</a></p>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'repair_app/base.html' %}
+
+{% block title %}Головна - Сервіс ремонту техніки{% endblock %}
+
+{% block content %}
+    <h1>Сервіс ремонту техніки</h1>
+    
+    <div>
+        <h2>Популярні послуги</h2>
+        <div>
+            {% for service in services %}
+                <div>
+                    <h3>{{ service.name }}</h3>
+                    <p>{{ service.description }}</p>
+                    <p>Ціна: {{ service.price }} грн</p>
+                </div>
+            {% endfor %}
+        </div>
+        <p><a href="{% url 'services' %}">Переглянути всі послуги</a></p>
+    </div>
+    
+    {% if user.is_authenticated %}
+        <div>
+            <h2>Швидкі посилання</h2>
+            <p><a href="{% url 'device_create' %}">Додати новий пристрій</a></p>
+            <p><a href="{% url 'repair_create' %}">Замовити ремонт</a></p>
+        </div>
+    {% else %}
+        <div>
+            <h2>Зареєструйтеся або увійдіть</h2>
+            <p>Зареєструйтеся, щоб мати можливість додавати пристрої та замовляти ремонт онлайн.</p>
+            <p><a href="{% url 'register' %}">Зареєструватися</a> | <a href="{% url 'login' %}">Увійти</a></p>
+        </div>
+    {% endif %}
+{% endblock %}

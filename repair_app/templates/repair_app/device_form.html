@@ -1,0 +1,34 @@
+{% extends 'repair_app/base.html' %}
+
+{% block title %}
+    {% if edit_mode %}Редагування пристрою{% else %}Додати пристрій{% endif %} - Сервіс ремонту техніки
+{% endblock %}
+
+{% block content %}
+    <h1>{% if edit_mode %}Редагування пристрою{% else %}Додати пристрій{% endif %}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="error">
+                        {% for error in field.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if field.help_text %}
+                    <small>{{ field.help_text }}</small>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit">{% if edit_mode %}Зберегти зміни{% else %}Додати пристрій{% endif %}</button>
+    </form>
+
+    <p><a href="{% url 'device_list' %}">Назад до списку пристроїв</a></p>
+{% endblock %}
